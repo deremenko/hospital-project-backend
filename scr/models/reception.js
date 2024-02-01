@@ -1,6 +1,6 @@
 const { Schema } = require("mongoose");
 
-const receptionsSchema = new Schema({
+const receptionSchema = new Schema({
   patient: {
     type: String,
     required: true,
@@ -16,7 +16,11 @@ const receptionsSchema = new Schema({
   complaint: {
     type: String,
     required: true,
+  },
+  userId: {
+    type: Schema.Type.ObjectId,
+    ref: 'User'
   }
 });
 
-module.exports = Receptions = mongoose.model("Receptions", receptionsSchema);
+module.exports = Reception = mongoose.model("Receptions", receptionSchema);
