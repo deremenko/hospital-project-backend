@@ -19,7 +19,7 @@ const receptionSchema = new Schema({
   },
   userId: {
     type: Schema.Type.ObjectId,
-    ref: 'User'
+    ref: 'Users'
   }
 });
 
