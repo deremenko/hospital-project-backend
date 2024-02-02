@@ -1,13 +1,11 @@
 const jwt = require("jsonwebtoken");
-const Token = require("../models/token-model.js");
+const Token = require("../models/token.js");
 
-class tokenService {
+class TokenService {
   generateTokens(payload) {
-    if (!process.env.JWT_ACCESS_SECRET || !process.env.JWT_REFRESH_SECRET) {
-      throw new Error("Отсутствует секретный ключ для создания токена.");
-    }
     const accessToken = jwt.sign(payload, process.env.JWT_ACCESS_SECRET, {expiresIn: "30m"})
     const refreshToken = jwt.sign(payload, process.env.JWT_ACCESS_SECRET, {expiresIn: "30d"})
+    
     return {
       accessToken,
       refreshToken
@@ -20,9 +18,11 @@ class tokenService {
       tokenData.refreshToken = refreshToken;
       return tokenData.save();
     }
+
     const token = await Token.create({ userId: id, refreshToken});
+
     return token;
   }
 }
 
-module.exports = new tokenService();
+module.exports = new TokenService();

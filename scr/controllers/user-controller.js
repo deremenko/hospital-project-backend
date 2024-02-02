@@ -1,17 +1,19 @@
 const userService = require("../services/user-services.js");
 
-class userController {
+class UserController {
   async registration(req, res, next) {
     try {
       const { login, password } = req.body;
       const userData = await userService.registrationUser(login, password);
-      console.log(userData.refreshToken)
-      res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60});
-      return res.json(userData);
+      
+      //30 day = 30 * 24 * 60 * 60
+      res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60, httpOnly: true});
+      
+      res.status(200).json(userData);
     } catch (err) {
-      console.log(err)
+      next(err);
     }
   }
 }
 
-module.exports = new userController();
+module.exports = new UserController();

@@ -1,18 +1,20 @@
-const userModel =  require("../models/user-model.js")
-const tokenService = require("./token-services.js");
 const bcrypt = require("bcrypt");
+const User =  require("../models/user.js")
+const tokenService = require("./token-services.js");
 const UserDto = require("../dtos/user-dto.js");
+const ApiError = require("../exceptions/api-error.js");
 
-class userService {
+class UserService {
   async registrationUser(login, password) {
-    const candidate = await userModel.findOne({login});
+    const candidate = await User.findOne({login});
     if (candidate) {
-      throw new Error(`Пользователь с логином ${login} уже существует`)
+      throw ApiError.BadRequest(`Пользователь с логином ${login} уже существует`)
     };
 
     const hashPassword = await bcrypt.hash(password, 3)
-    const user = await userModel.create({login, password: hashPassword});
+    const user = await User.create({login, password: hashPassword});
     const userDto = new UserDto(user);
+    
     const tokens = tokenService.generateTokens({...userDto});
     await tokenService.saveToken(userDto.id, tokens.refreshToken);
   
@@ -23,4 +25,4 @@ class userService {
   }
 }
 
-module.exports = new userService();
+module.exports = new UserService();
