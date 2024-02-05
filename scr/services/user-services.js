@@ -5,9 +5,10 @@ const UserDto = require("../dtos/user-dto.js");
 const ApiError = require("../exceptions/api-error.js");
 
 class UserService {
+
   async registrationUser(login, password) {
     const candidate = await User.findOne({login});
-    
+
     if (candidate) {
       throw ApiError.BadRequest(`Пользователь с логином ${login} уже существует`)
     };
@@ -24,6 +25,7 @@ class UserService {
       user,
     }
   }
+  
 }
 
 module.exports = new UserService();

@@ -3,6 +3,7 @@ const Token = require("../models/token.js");
 const { ACCESS_SECRET, REFRESH_SECRET } = require("../../config.js");
 
 class TokenService {
+  
   generateTokens(payload) {
     const accessToken = jwt.sign(payload, ACCESS_SECRET, {expiresIn: "30m"})
     const refreshToken = jwt.sign(payload, REFRESH_SECRET, {expiresIn: "30d"})
@@ -15,7 +16,7 @@ class TokenService {
 
   async saveToken(id, refreshToken) {
     const tokenData = await Token.findOne({ userId: id });
-    
+
     if (tokenData) {
       tokenData.refreshToken = refreshToken;
       return tokenData.save();
@@ -25,6 +26,7 @@ class TokenService {
 
     return token;
   }
+  
 }
 
 module.exports = new TokenService();
