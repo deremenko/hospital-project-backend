@@ -3,6 +3,7 @@ const User =  require("../models/user.js")
 const TokenService = require("./token-services.js");
 const UserDto = require("../dtos/user-dto.js");
 const ApiError = require("../exceptions/api-error.js");
+const { error } = require("console");
 
 class UserService {
 
@@ -24,6 +25,32 @@ class UserService {
       ...tokens,
       user,
     }
+  }
+
+  async login(login, password) {
+    const user = await User.findOne({login});
+    if (!user) {
+      throw ApiError.BadRequest('Пользоатель с таким логином не найден')
+    }
+
+    const isPasswordCorrect = await bcrypt.compare(password, user.password);
+    if (!isPasswordCorrect) {
+      throw ApiError.BadRequest('Неверный пароль')
+    }
+
+    const userDto = new UserDto(user);
+    const tokens = await TokenService.generateTokens({...userDto});
+    await TokenService.saveToken(userDto.id, tokens.refreshToken);
+
+    return {
+      ...tokens,
+      user,
+    }
+  }
+
+  async logout(refreshToken) {
+    const token = await TokenService.removeToken(refreshToken);
+    return token;
   }
   
 }
