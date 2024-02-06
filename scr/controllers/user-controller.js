@@ -18,6 +18,32 @@ class UserController {
       next(err);
     }
   }
+
+  async loginUser(req, res, next) {
+    try {
+      const { login, password } = req.body;
+      
+      const userData = await UserService.loginUser(login, password);
+
+      res.cookie('refreshToken', userData.refreshToken, cookieSettings);
+      res.status(200).json(userData);
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  async logout(req, res, next) {
+    try {
+      const { refreshToken } = req.cookies;
+
+      const token = await UserService.logout(refreshToken);
+
+      res.clearCookie('refreshToken');
+      res.status(200).json(token);
+    } catch (err) {
+      next(err);
+    }
+  }
   
 }
 
