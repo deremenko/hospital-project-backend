@@ -3,7 +3,6 @@ const User =  require("../models/user.js")
 const TokenService = require("./token-services.js");
 const UserDto = require("../dtos/user-dto.js");
 const ApiError = require("../exceptions/api-error.js");
-const { error } = require("console");
 
 class UserService {
 
@@ -27,8 +26,8 @@ class UserService {
     }
   }
 
-  async login(login, password) {
-    const user = await User.findOne({login});
+  async authorization(login, password) {
+    const user = await User.findOne({ login });
     if (!user) {
       throw ApiError.BadRequest('Пользоатель с таким логином не найден')
     }
@@ -48,7 +47,7 @@ class UserService {
     }
   }
 
-  async logout(refreshToken) {
+  async deauthorization(refreshToken) {
     const token = await TokenService.removeToken(refreshToken);
     return token;
   }
