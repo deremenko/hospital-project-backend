@@ -26,7 +26,7 @@ class UserService {
     }
   }
 
-  async authorization(login, password) {
+  async loginUser(login, password) {
     const user = await User.findOne({ login });
     if (!user) {
       throw ApiError.BadRequest('Пользоатель с таким логином не найден')
@@ -47,7 +47,7 @@ class UserService {
     }
   }
 
-  async deauthorization(refreshToken) {
+  async logout(refreshToken) {
     const token = await TokenService.removeToken(refreshToken);
     return token;
   }
