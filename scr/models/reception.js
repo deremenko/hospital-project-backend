@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const { Schema } = require("mongoose");
 
 const receptionSchema = new Schema({
@@ -18,7 +19,7 @@ const receptionSchema = new Schema({
     required: true,
   },
   userId: {
-    type: Schema.Type.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'Users'
   }
 });
