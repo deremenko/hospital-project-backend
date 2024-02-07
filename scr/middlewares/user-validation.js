@@ -3,12 +3,12 @@ const { validatorResult } = require('./validation-result');
 
 const validationUser = [
   check('login')
-    .isString()
     .trim()
+    .isString()
     .isLength({ min: 6 }),
   check('password')
-    .isString()
     .trim()
+    .isString()
     .matches(/^(?=.*[A-Za-z])(?=.*\d).{6,}$/),
   validatorResult
 ];

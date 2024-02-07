@@ -30,11 +30,6 @@ class TokenService {
     const tokenData = await Token.deleteOne({ refreshToken });
     return tokenData;
   }
-
-  async decodedToken(token, secretKey) {
-    const decryptedToken = jwt.verify(token, secretKey);
-    return decryptedToken;
-  }
   
 }
 
