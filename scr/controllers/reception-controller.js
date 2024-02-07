@@ -3,15 +3,22 @@ const ReceptionServices = require("../services/reception-services");
 class ReceptionController {
    createReception = async (req, res, next) => {
     try {
-      const receptionData = {
-        patient: req.body.patient,
-        doctor: req.body.doctor,
-        date: req.body.date,
-        complaint: req.body.complaint,
-        userId: req.body.user.id,
-      } 
+      const { 
+        patient, 
+        doctor, 
+        date, 
+        complaint,   
+      } = res.body;
 
-      const newReception = await ReceptionServices.createReception(receptionData);
+      const userId = req.user.id;
+
+      const newReception = await ReceptionServices.createReception({
+        patient, 
+        doctor, 
+        date, 
+        complaint, 
+        userId 
+      });
 
       res.status(201).json(newReception);
     } catch (err) {
