@@ -8,12 +8,12 @@ class ReceptionController {
         doctor: req.body.doctor,
         date: req.body.date,
         complaint: req.body.complaint,
-        userId: req.body.userId
+        userId: req.body.user.id,
       } 
-      
+
       const newReception = await ReceptionServices.createReception(receptionData);
 
-      return res.status(201).json(newReception);
+      res.status(201).json(newReception);
     } catch (err) {
       next(err);
     }

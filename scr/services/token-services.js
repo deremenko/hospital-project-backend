@@ -30,6 +30,29 @@ class TokenService {
     const tokenData = await Token.deleteOne({ refreshToken });
     return tokenData;
   }
+
+  validateAccessToken(token) {
+    try {
+      const userData = jwt.verify(token, ACCESS_SECRET);
+      return userData;
+    } catch (err) {
+      return null
+    }
+  }
+
+  validateRefreshToken(token) {
+    try {
+      const userData = jwt.verify(token, REFRESH_SECRET);
+      return userData;
+    } catch (err) {
+      return null 
+    }
+  }
+
+  async findToken(refreshToken) {
+    const tokenData = await Token.findOne({refreshToken});
+    return tokenData
+  }
   
 }
 

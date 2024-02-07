@@ -1,6 +1,9 @@
-const userRouter = require('./user-router.js');
-const receptionRouter = require('./reseption-router.js');
+const userRoutes = require('./user');
+const receptionRoutes = require('./reception');
 
-const route = [userRouter, receptionRouter];
+const router = require('express').Router();
 
-module.exports = route;
+router.use('/user', userRoutes);
+router.use('/reception', receptionRoutes);
+
+module.exports = router;

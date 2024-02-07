@@ -8,7 +8,7 @@ class ReceptionServices {
       doctor: receptionData.doctor,
       date: receptionData.date,
       complaint: receptionData.complaint,
-      userId: receptionData.userId,
+      userId: receptionData.user._id,
     });
 
     await newReception.save();
