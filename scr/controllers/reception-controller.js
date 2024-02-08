@@ -26,6 +26,18 @@ class ReceptionController {
     }
   };
 
+  async deleteReception(req, res, next) {
+    try {
+      const id = req.params.id;
+
+      const receptionData = await ReceptionServices.deleteReception(id);
+      
+      res.status(200).json(receptionData);
+    } catch (err) {
+      next(err);
+    }
+  }
+
 }
 
 module.exports = new ReceptionController();
