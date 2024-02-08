@@ -8,7 +8,7 @@ class ReceptionController {
         doctor, 
         date, 
         complaint,   
-      } = res.body;
+      } = req.body;
 
       const userId = req.user.id;
 
@@ -17,7 +17,7 @@ class ReceptionController {
         doctor, 
         date, 
         complaint, 
-        userId 
+        userId
       });
 
       res.status(201).json(newReception);
