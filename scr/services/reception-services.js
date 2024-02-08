@@ -9,6 +9,12 @@ class ReceptionServices {
     return newReception;
   }
 
+  async deleteReception(id) {
+    console.log(id)
+    const deletedReception = await Reception.findOneAndDelete({ _id: id });
+    return deletedReception;
+  };
+
 }
 
 module.exports = new ReceptionServices();

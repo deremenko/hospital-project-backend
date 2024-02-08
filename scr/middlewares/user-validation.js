@@ -5,7 +5,7 @@ const validationUser = [
   check('login')
     .trim()
     .isString()
-    .isLength({ min: 6 }),
+    .isLength({ min: 4 }),
   check('password')
     .trim()
     .isString()
