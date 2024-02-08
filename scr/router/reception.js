@@ -7,5 +7,6 @@ const receptionRouter = new Router
 
 receptionRouter.post('/', validationReception, authMiddleware,  ReceptionController.createReception);
 receptionRouter.delete('/:id', authMiddleware, ReceptionController.deleteReception);
+receptionRouter.patch('/:id', authMiddleware, validationReception, ReceptionController.editReception);
 
 module.exports = receptionRouter;

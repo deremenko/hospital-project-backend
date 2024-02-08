@@ -14,6 +14,15 @@ class ReceptionServices {
     return deletedReception;
   };
 
+  async editReception(id, receptionData) {
+    const Newreception = await Reception.findOneAndUpdate(
+      { _id: id }, 
+      receptionData,
+      { new: true }
+    );
+    return Newreception;
+  }
+
 }
 
 module.exports = new ReceptionServices();

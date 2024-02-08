@@ -38,6 +38,27 @@ class ReceptionController {
     }
   }
 
+  async editReception(req, res, next) {
+    try {
+      const { patient, doctor, date, complaint } = req.body;
+      const { Id } = req.params;
+
+      const reception = await ReceptionServices.editReception(
+        Id, 
+        { 
+          patient, 
+          doctor, 
+          date, 
+          complaint 
+        });
+      
+      res.status(200).json(reception);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+
 }
 
 module.exports = new ReceptionController();
