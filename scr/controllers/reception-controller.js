@@ -41,10 +41,10 @@ class ReceptionController {
   async editReception(req, res, next) {
     try {
       const { patient, doctor, date, complaint } = req.body;
-      const { Id } = req.params;
+      const { id } = req.params;
 
       const reception = await ReceptionServices.editReception(
-        Id, 
+        id, 
         { 
           patient, 
           doctor, 
