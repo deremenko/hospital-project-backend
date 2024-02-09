@@ -5,7 +5,8 @@ const authMiddleware = require('../middlewares/auth-middleware.js');
 
 const receptionRouter = new Router
 
-receptionRouter.post('/', validationReception, authMiddleware,  ReceptionController.createReception);
+receptionRouter.get('/', authMiddleware, ReceptionController.getAllReceptions);
+receptionRouter.post('/', authMiddleware, validationReception, ReceptionController.createReception);
 receptionRouter.delete('/:id', authMiddleware, ReceptionController.deleteReception);
 receptionRouter.patch('/:id', authMiddleware, validationReception, ReceptionController.editReception);
 

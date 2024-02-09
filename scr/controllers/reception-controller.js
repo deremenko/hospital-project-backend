@@ -8,7 +8,7 @@ class ReceptionController {
         doctor, 
         date, 
         complaint,   
-      } = res.body;
+      } = req.body;
 
       const userId = req.user.id;
 
@@ -19,7 +19,7 @@ class ReceptionController {
         complaint, 
         userId 
       });
-
+ 
       res.status(201).json(newReception);
     } catch (err) {
       next(err);
@@ -58,6 +58,17 @@ class ReceptionController {
     }
   }
 
+  async getAllReceptions(req, res, next) {
+    try {
+      const id = req.user.id;
+
+      const receptions = await ReceptionServices.getReceptions(id);
+      
+      res.status(200).json(receptions);
+    } catch (error) {
+      next(error);
+    }
+  }
 
 }
 

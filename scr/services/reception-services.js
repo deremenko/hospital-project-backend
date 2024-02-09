@@ -3,7 +3,7 @@ const Reception = require("../models/reception.js");
 class ReceptionServices {
   async createReception(receptionData) {
 
-    const newReception = new Reception({receptionData});
+    const newReception = new Reception(receptionData);
 
     await newReception.save();
     return newReception;
@@ -24,6 +24,11 @@ class ReceptionServices {
     return updateReception;
   }
 
+  async getReceptions(id) {
+    const allUserReceptions = await Reception.find({ userId: id });
+
+    return allUserReceptions;
+  }
 }
 
 module.exports = new ReceptionServices();
